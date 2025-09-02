@@ -1,10 +1,11 @@
 "use client";
+
 import { useState } from "react";
 import type { TripPlan } from "@/types/trip";
 
 type Props = {
   initial?: Partial<TripPlan>;
-  onSubmit: (data: Omit<TripPlan, "_id"|"createdAt">) => Promise<void> | void;
+  onSubmit: (data: Omit<TripPlan, "_id" | "createdAt">) => Promise<void> | void;
   submittingText?: string;
 };
 
@@ -16,11 +17,11 @@ export default function TripForm({ initial, onSubmit, submittingText = "Saving..
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const valid = title.trim() && destination.trim() && Number.isInteger(days) && days > 0 && budget >= 0;
+  const valid = title.trim() !== "" && destination.trim() !== "" && Number.isInteger(days) && days > 0 && budget >= 0;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!valid) return;
+    if (!valid) return setError("Please fill all fields correctly.");
     try {
       setLoading(true);
       setError(null);
@@ -33,29 +34,36 @@ export default function TripForm({ initial, onSubmit, submittingText = "Saving..
   }
 
   return (
-    <form onSubmit={handleSubmit} className="card p-6 space-y-4">
+    <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-6 shadow-md border space-y-4">
       <div>
-        <label className="label" htmlFor="title">Title</label>
-        <input id="title" className="input mt-1" value={title} onChange={e => setTitle(e.target.value)} placeholder="e.g., Goa Weekend" />
+        <label className="block text-sm font-medium text-gray-700">Title</label>
+        <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Weekend in Goa" className="mt-1 w-full rounded-xl border px-4 py-2 focus:ring-2 focus:ring-brand-500" />
       </div>
+
       <div>
-        <label className="label" htmlFor="destination">Destination</label>
-        <input id="destination" className="input mt-1" value={destination} onChange={e => setDestination(e.target.value)} placeholder="e.g., Goa" />
+        <label className="block text-sm font-medium text-gray-700">Destination</label>
+        <input value={destination} onChange={(e) => setDestination(e.target.value)} placeholder="Goa" className="mt-1 w-full rounded-xl border px-4 py-2 focus:ring-2 focus:ring-brand-500" />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
-          <label className="label" htmlFor="days">Days</label>
-          <input id="days" className="input mt-1" type="number" min={1} value={days} onChange={e => setDays(Number(e.target.value))} />
+          <label className="block text-sm font-medium text-gray-700">Days</label>
+          <input type="number" min={1} value={days} onChange={(e) => setDays(Number(e.target.value))} className="mt-1 w-full rounded-xl border px-4 py-2 focus:ring-2 focus:ring-brand-500" />
         </div>
         <div>
-          <label className="label" htmlFor="budget">Budget</label>
-          <input id="budget" className="input mt-1" type="number" min={0} value={budget} onChange={e => setBudget(Number(e.target.value))} />
+          <label className="block text-sm font-medium text-gray-700">Budget (₹)</label>
+          <input type="number" min={0} value={budget} onChange={(e) => setBudget(Number(e.target.value))} className="mt-1 w-full rounded-xl border px-4 py-2 focus:ring-2 focus:ring-brand-500" />
         </div>
       </div>
+
       {error && <p className="text-sm text-red-600">{error}</p>}
-      <button className="btn" disabled={!valid || loading} type="submit">
-        {loading ? submittingText : "Submit"}
-      </button>
+
+      <div className="flex items-center gap-3">
+        <button type="submit" disabled={loading} className="px-4 py-2 rounded-xl bg-brand-500 text-white font-semibold hover:bg-brand-600">
+          {loading ? submittingText : (initial ? "Update Trip" : "Create Trip")}
+        </button>
+        <button type="button" onClick={() => { setTitle(""); setDestination(""); setDays(1); setBudget(0); }} className="px-4 py-2 rounded-xl border">Reset</button>
+      </div>
     </form>
   );
 }

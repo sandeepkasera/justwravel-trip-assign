@@ -14,22 +14,19 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+/* small helpers */
+.bg-brand-50 { background-color: #eef2ff; }
+.text-brand-600 { color: var(--brand-600); }
+.bg-brand-500 { background-color: var(--brand-500); }
+.bg-brand-600 { background-color: var(--brand-600); }
 
-
-.container { @apply max-w-5xl mx-auto px-4; }
-.card { @apply rounded-2xl shadow-sm bg-white dark:bg-gray-800 border border-gray-200/60 dark:border-gray-700/60; }
-.btn { @apply inline-flex items-center justify-center rounded-xl px-4 py-2 font-medium border border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800; }
-.input { @apply w-full rounded-xl border border-gray-300 px-3 py-2 bg-white dark:bg-gray-800; }
-.label { @apply text-sm font-medium text-gray-600 dark:text-gray-300; }
+/* element styles */
+input, textarea, select {
+  outline: none;
+}
