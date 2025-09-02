@@ -24,10 +24,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body>
+        <div className="container py-8">
+          <header className="mb-8 flex items-center justify-between">
+            <h1 className="text-2xl font-bold">Trip Planner</h1>
+            <nav className="space-x-3">
+              <a className="btn" href="/dashboard">Dashboard</a>
+              <a className="btn" href="/submit">Submit</a>
+            </nav>
+          </header>
+          {children}
+        </div>
       </body>
     </html>
   );
