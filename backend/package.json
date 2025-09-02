@@ -1,0 +1,24 @@
+{
+  "name": "justwravel-trip-plan-backend",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@fastify/cors": "^9.0.0",
+    "fastify": "^4.28.1",
+    "mongoose": "^8.6.0",
+    "zod": "^3.23.8",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.2",
+    "vitest": "^1.5.0"
+  }
+}
