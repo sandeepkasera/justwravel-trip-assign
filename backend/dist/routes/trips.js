@@ -1,5 +1,5 @@
-import { TripPlan } from "../models/TripPlan";
-import { tripPlanSchema, paginationQuerySchema } from "../schemas/trip";
+import { TripPlan } from "../models/TripPlan.js";
+import { tripPlanSchema, paginationQuerySchema } from "../schemas/trip.js";
 export async function tripRoutes(app) {
     app.post("/api/trips", async (request, reply) => {
         try {

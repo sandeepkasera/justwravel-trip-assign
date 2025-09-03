@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
-import { TripPlan } from "../models/TripPlan";
-import { tripPlanSchema, paginationQuerySchema } from "../schemas/trip";
+import { TripPlan } from "../models/TripPlan.js";
+import { tripPlanSchema, paginationQuerySchema } from "../schemas/trip.js";
 
 export async function tripRoutes(app: FastifyInstance) {
   app.post("/api/trips", async (request, reply) => {
