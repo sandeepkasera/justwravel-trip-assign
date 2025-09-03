@@ -59,7 +59,7 @@ export default function TripForm({ initial, onSubmit, submittingText = "Saving..
       {error && <p className="text-sm text-red-600">{error}</p>}
 
       <div className="flex items-center gap-3">
-        <button type="submit" disabled={loading} className="px-4 py-2 rounded-xl bg-brand-500 text-white font-semibold hover:bg-brand-600">
+        <button type="submit" disabled={loading} className="px-4 py-2 rounded-xl bg-brand-500 font-semibold hover:bg-brand-600">
           {loading ? submittingText : (initial ? "Update Trip" : "Create Trip")}
         </button>
         <button type="button" onClick={() => { setTitle(""); setDestination(""); setDays(1); setBudget(0); }} className="px-4 py-2 rounded-xl border">Reset</button>
