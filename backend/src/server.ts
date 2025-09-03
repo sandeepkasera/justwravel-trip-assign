@@ -12,7 +12,8 @@ await app.register(cors, { origin: true });
 if (!process.env.MONGO_URI) {
   throw new Error("MONGO_URI environment variable is not defined");
 }
-await connectDB(process.env.MONGO_URI);
+const uri = process.env.MONGO_URI ? process.env.MONGO_URI : "mongodb://localhost:27017/trip_assignment";
+await connectDB(uri);
 
 await app.register(tripRoutes);
 
