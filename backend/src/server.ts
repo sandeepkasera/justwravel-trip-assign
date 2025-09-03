@@ -6,10 +6,10 @@ import { tripRoutes } from "./routes/trips.js";
 
 config();
 
-const app = Fastify({ logger: true });
+const app = Fastify({ logger: false });
 
 await app.register(cors, { origin: true });
-await connectDB(process.env.MONGODB_URI ?? "mongodb://localhost:27017/trip_assignment");
+await connectDB(process.env.MONGO_URI ?? "mongodb://localhost:27017/trip_assignment");
 
 await app.register(tripRoutes);
 
