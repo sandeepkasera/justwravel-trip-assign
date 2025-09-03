@@ -9,7 +9,10 @@ config();
 const app = Fastify({ logger: false });
 
 await app.register(cors, { origin: true });
-await connectDB(process.env.MONGO_URI ?? "mongodb://localhost:27017/trip_assignment");
+if (!process.env.MONGO_URI) {
+  throw new Error("MONGO_URI environment variable is not defined");
+}
+await connectDB(process.env.MONGO_URI);
 
 await app.register(tripRoutes);
 
