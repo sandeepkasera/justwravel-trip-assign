@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
-import { TripPlan } from "../models/TripPlan.js";
-import { tripPlanSchema, paginationQuerySchema } from "../schemas/trip.js";
+import { TripPlan } from "../models/TripPlan";
+import { tripPlanSchema, paginationQuerySchema } from "../schemas/trip";
 
 export async function tripRoutes(app: FastifyInstance) {
   app.post("/api/trips", async (request, reply) => {
@@ -27,12 +27,12 @@ export async function tripRoutes(app: FastifyInstance) {
       const page = q.page ?? 1;
       const limit = q.limit ?? 20;
       const skip = (page - 1) * limit;
-
+      console.log('Filter:', filter, 'Page:', page, 'Limit:', limit, 'Skip:', skip);
       const [items, total] = await Promise.all([
         TripPlan.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
         TripPlan.countDocuments(filter)
       ]);
-
+      console.log(`Found ${JSON.stringify(items)} items out of total ${total}`);
       return { items, page, limit, total, pages: Math.ceil(total / limit) };
     } catch (err: any) {
       return reply.code(400).send({ error: "Invalid query", details: err?.errors ?? String(err) });
